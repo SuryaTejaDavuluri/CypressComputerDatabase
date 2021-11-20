@@ -1,0 +1,36 @@
+class NewComputerPage {
+
+    PageHeader() {
+        return cy.get('#main')
+    }
+
+    ComputerName() {
+        return cy.get('#name')
+    }
+
+    IntroducedDate() {
+        return cy.get('#introduced')
+    }
+
+    DiscontinedDate() {
+        return cy.get('#discontinued')
+    }
+
+    CompanyName() {
+        return cy.get('select')
+    }
+
+    SaveNewComputer() {
+        return cy.get('input[type="submit"]')
+    }
+
+    CancelNewComputer() {
+        return cy.get('.btn')
+    }
+
+    DeleteComputer() {
+        return cy.get('.btn.danger')
+    }
+}
+
+export default NewComputerPage
