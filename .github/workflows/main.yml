@@ -14,4 +14,4 @@ jobs:
         uses: cypress-io/github-action@v2.9.7
         with:
           build: npx cypress run --record --key dfac4085-6709-4abb-90cd-6c41b9dcaae6 -- spec 'cypress\integration\*.js'
-          start: npm start
+          # start: npm start
