@@ -20,16 +20,22 @@ Cypress.Commands.add('AddComputer', function (computerName, introducedDate, disc
         else {
             if (computerName != '') {
                 newComputerPage.SaveNewComputer().click()
-                homePage.SuccessAlert().then(function (el) {
-                    let successMessage = el.text()
-                    successMessage = successMessage.trim()
-                    expect(successMessage).to.equal("Done! Computer " + computerName + " has been created")
+                cy.get('.btn').then(function (el) {
+                    let txt = el.text()
+                    if (txt.includes('Add')) {
+                        homePage.SuccessAlert().then(function (el1) {
+                            let successMessage = el1.text()
+                            successMessage = successMessage.trim()
+                            expect(successMessage).to.equal("Done! Computer " + computerName + " has been created")
+                        })
+                    }
+                    else {
+                        cy.get('fieldset div').should('have.class', 'clearfix error')
+                    }
                 })
+
             }
-            else {
-                newComputerPage.SaveNewComputer().click()
-                cy.get('fieldset div').should('have.class', 'clearfix error')
-            }
+
         }
     }
     else {
