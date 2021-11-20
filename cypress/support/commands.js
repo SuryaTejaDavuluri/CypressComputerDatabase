@@ -101,14 +101,36 @@ Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, d
                 }
             })
             newComputerPage.PageHeader().should('contain.text', 'Edit computer')
-            newComputerPage.ComputerName().invoke('val', Name)
-            newComputerPage.IntroducedDate().invoke('val', introducedDate)
-            newComputerPage.DiscontinedDate().invoke('val', discontinuedDate)
-            newComputerPage.CompanyName().select(company)
+            if (Name == '') {
+                //
+            }
+            else {
+                newComputerPage.ComputerName().invoke('val', Name)
+            }
+
+            if (introducedDate == '') {
+                // 
+            }
+            else {
+                newComputerPage.IntroducedDate().invoke('val', introducedDate)
+            }
+            if (discontinuedDate == '') {
+                //
+            }
+            else {
+                newComputerPage.DiscontinedDate().invoke('val', discontinuedDate)
+            }
+            if (company == '') {
+                //
+            }
+            else {
+                newComputerPage.CompanyName().select(company)
+            }
+
             if (option == 'Edit') {
                 if (Name == '') {
                     newComputerPage.SaveEditedComputer().click()
-                    cy.get('fieldset div').should('have.class', 'clearfix error')
+                    // cy.get('fieldset div').should('have.class', 'clearfix error')
                 }
                 else {
                     if (Name != '') {
@@ -144,6 +166,30 @@ Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, d
     })
 
 })
+
+Cypress.Commands.add('SearchorFilter', function (ComputerName) {
+    cy.get('#searchbox').type(ComputerName)
+    cy.get('#searchsubmit').click()
+    cy.get('#main').then(function (ele) {
+        let res = ele.text()
+        if (res.includes('No computers found')) {
+            cy.get('.well').then(function (el) {
+                let msg = el.text()
+                msg = msg.trim()
+                expect(msg).to.equal('Nothing to display')
+            })
+        }
+        else {
+            cy.get('.computers.zebra-striped').should('contain.text', ComputerName)
+            cy.get('td a').eq(0).each(function (el1, index, $list) {
+                let cname = $list.eq(index).text()
+                cy.log(cname)
+            })
+
+        }
+    })
+})
+
 
 Cypress.Commands.add("parseXlsx", (inputFile) => {
     return cy.task('parseXlsx', { filePath: inputFile })

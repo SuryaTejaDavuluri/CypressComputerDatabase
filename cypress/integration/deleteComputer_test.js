@@ -16,7 +16,7 @@ describe('Delete Computer', function () {
     })
 
     it('Delete existing computer', function () {
-        cy.DeleteComputer('Surya Excel')
+        cy.DeleteComputer('Test c')
     })
 
 })
