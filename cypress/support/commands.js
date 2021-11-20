@@ -44,37 +44,37 @@ Cypress.Commands.add('AddComputer', function (computerName, introducedDate, disc
     }
 })
 
-
-// Cypress.Commands.add('CancelComputer', function (computerName, introducedDate, discontinuedDate, company) {
-//     homePage.PageHeader().should('include.text', 'Play sample application — Computer database')
-//     homePage.AddNewComputer().click()
-//     newComputerPage.PageHeader().should('contain.text', 'Add a computer')
-//     newComputerPage.ComputerName().type(computerName)
-//     newComputerPage.IntroducedDate().type(introducedDate)
-//     newComputerPage.DiscontinedDate().type(discontinuedDate)
-//     newComputerPage.CompanyName().select(company)
-//     newComputerPage.CancelNewComputer().contains('Cancel').click()
-
-// })
-
 Cypress.Commands.add('DeleteComputer', function (computerName) {
 
     cy.get('#searchbox').type(computerName)
     cy.get('#searchsubmit').click()
-    cy.get('.computers.zebra-striped').should('contain.text', computerName)
-    cy.get('td a').eq(0).each(function (el, index, $list) {
-        let cname = $list.eq(index).text()
-        cy.log(cname)
-        if (cname.includes(computerName)) {
-            cy.wrap(el).click()
+
+    cy.get('#main').then(function (ele) {
+        let res = ele.text()
+        if (res.includes('No computers found')) {
+            cy.get('.well').then(function (el) {
+                let msg = el.text()
+                msg = msg.trim()
+                expect(msg).to.equal('Nothing to display')
+            })
         }
-    })
-    newComputerPage.PageHeader().should('contain.text', 'Edit computer')
-    cy.get('.btn.danger').click()
-    cy.get('.alert-message.warning').then(function (el) {
-        let deleteMessage = el.text()
-        deleteMessage = deleteMessage.trim()
-        expect(deleteMessage).to.equal("Done! Computer has been deleted")
+        else {
+            cy.get('.computers.zebra-striped').should('contain.text', computerName)
+            cy.get('td a').eq(0).each(function (el1, index, $list) {
+                let cname = $list.eq(index).text()
+                cy.log(cname)
+                if (cname.includes(computerName)) {
+                    cy.wrap(el1).click()
+                }
+            })
+            newComputerPage.PageHeader().should('contain.text', 'Edit computer')
+            cy.get('.btn.danger').click()
+            cy.get('.alert-message.warning').then(function (el2) {
+                let deleteMessage = el2.text()
+                deleteMessage = deleteMessage.trim()
+                expect(deleteMessage).to.equal("Done! Computer has been deleted")
+            })
+        }
     })
 
 })
