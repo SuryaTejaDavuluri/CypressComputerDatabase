@@ -11,7 +11,7 @@ before(function () {
 
 describe('Computer List', function () {
 
-    it('List all computers in the site', function () {
+    it.skip('List all computers in the site', function () {
 
         cy.get('#main h1').then(function (el) {
             let total = el.text()
