@@ -1,9 +1,4 @@
 /// <reference types="cypress" />
-import HomePage from '../support/PageObjects/homePageObjects'
-import NewComputerPage from '../support/PageObjects/newcompPageObjects'
-
-const homePage = new HomePage()
-const newComputerPage = new NewComputerPage()
 
 let rowsLength
 

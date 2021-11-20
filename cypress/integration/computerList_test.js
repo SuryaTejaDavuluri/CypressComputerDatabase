@@ -3,8 +3,8 @@
 
 before(function () {
 
-    cy.clearCookies()
     cy.visit('/computers')
+    cy.writeFile('ComputerList.txt', '')
 
 })
 
@@ -22,49 +22,11 @@ describe('Computer List', function () {
                     cy.get('td a').each(function ($el, index, $list) {
                         let cname = $el.text()
                         // cy.log(cname1)
-                        cy.writeFile('ComputerList', cname+ "\n", {flag:'a+'})
-                        
+                        cy.writeFile('ComputerList.txt', cname + "\n", { flag: 'a+' })
                     })
                     cy.get('.next a').click()
-                    
-                    // cy.get('tr td:nth-child(2)').each(function ($el, index, $list) {
-                    //     let cname2 = $el.text()
-                    //     cy.log(cname2)
-                    //     this.cname2 = cname2
-                        
-                    // })
-                    // cy.get('tr td:nth-child(3)').each(function ($el, index, $list) {
-                    //     let cname3 = $el.text()
-                    //     // cy.log(cname3)
-                    //     this.cname3 = cname3
-                        
-                    // })
-                    // cy.get('tr td:nth-child(4)').each(function ($el, index, $list) {
-                    //     let cname4 = $el.text()
-                    //     // cy.log(cname4)
-                    //     this.cname4 = cname4
-                        
-                    // })
-                    
-                   
-                    
-
-                    
                 }
             }
-
-
-
         })
-
-
-
-
-
-
     })
-
-
-
-
 })

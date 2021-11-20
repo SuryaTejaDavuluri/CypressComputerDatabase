@@ -147,6 +147,7 @@ Cray-2
 Cray-3
 Cray-4
 CrunchPad
+CypressTest
 D-Series Machines
 D.K.COMMUNICATION
 D4a
@@ -470,6 +471,14 @@ Sun-3
 Sun386i
 Super Famicom
 Super Nintendo Entertainment System
+Surya
+Surya
+Surya
+Surya 2
+Surya 2
+Surya 2
+Surya JSON
+Surya JSON
 System X
 System/3
 System/32
@@ -477,6 +486,22 @@ System/34
 System/36
 System/360
 System/38
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST
+TEST2
+TEST2
+TEST2
+TEST2
+TEST2
+TEST2
+TEST2
+TEST2
 TRS-80
 TRS-80 Color Computer
 TRS-80 Color Computer 2
@@ -487,12 +512,13 @@ TRS-80 Model 3
 TX-0
 TX-2
 Test
-Test computer1402
-Test computer4693
-Test computer7536
-TestEditcomputer2184
-TestEditcomputer7358
-TestEditcomputer771
+Test Computer Name
+Test Computer Name
+Test Computer Name
+Test Computer Name
+Test Computer Name 2
+Test Computer Name 2
+Test Computer Name 3
 ThinkPad
 ThinkPad 340 CSE
 ThinkPad 370 C
@@ -536,6 +562,7 @@ Xerox Daybreak
 Xerox NoteTaker
 Xerox Star
 Xserve
+Z
 Z1
 Z2
 Z3
@@ -548,6 +575,7 @@ ZX Spectrum +3
 ZX Spectrum 128
 ZX Spectrum 16K
 ZX Spectrum 48K
+asfasf
 ecoATM
 iBook
 iBook G3

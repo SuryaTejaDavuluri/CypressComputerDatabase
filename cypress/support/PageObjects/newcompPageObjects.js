@@ -24,6 +24,10 @@ class NewComputerPage {
         return cy.get('input[type="submit"]')
     }
 
+    SaveEditedComputer() {
+        return cy.get('input[type="submit"]').eq(0)
+    }
+
     CancelNewComputer() {
         return cy.get('.btn')
     }

@@ -79,15 +79,71 @@ Cypress.Commands.add('DeleteComputer', function (computerName) {
 
 })
 
+Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, discontinuedDate, company, option) {
+    cy.get('#searchbox').type(Computer)
+    cy.get('#searchsubmit').click()
+    cy.get('#main').then(function (ele) {
+        let res = ele.text()
+        if (res.includes('No computers found')) {
+            cy.get('.well').then(function (el) {
+                let msg = el.text()
+                msg = msg.trim()
+                expect(msg).to.equal('Nothing to display')
+            })
+        }
+        else {
+            cy.get('.computers.zebra-striped').should('contain.text', Computer)
+            cy.get('td a').eq(0).each(function (el1, index, $list) {
+                let cname = $list.eq(index).text()
+                cy.log(cname)
+                if (cname.includes(Computer)) {
+                    cy.wrap(el1).click()
+                }
+            })
+            newComputerPage.PageHeader().should('contain.text', 'Edit computer')
+            newComputerPage.ComputerName().invoke('val', Name)
+            newComputerPage.IntroducedDate().invoke('val', introducedDate)
+            newComputerPage.DiscontinedDate().invoke('val', discontinuedDate)
+            newComputerPage.CompanyName().select(company)
+            if (option == 'Edit') {
+                if (Name == '') {
+                    newComputerPage.SaveEditedComputer().click()
+                    cy.get('fieldset div').should('have.class', 'clearfix error')
+                }
+                else {
+                    if (Name != '') {
+                        newComputerPage.SaveEditedComputer().click()
+                        cy.get('.btn').then(function (el) {
+                            let txt = el.text()
+                            if (txt.includes('Add')) {
+                                homePage.SuccessAlert().then(function (el1) {
+                                    let successMessage = el1.text()
+                                    successMessage = successMessage.trim()
+                                    expect(successMessage).to.equal("Done! Computer " + Name + " has been updated")
+                                })
+                            }
+                            else {
+                                cy.get('fieldset div').should('have.class', 'clearfix error')
+                            }
+                        })
 
-Cypress.Commands.add("validateIfElementExistsInDomAsBoolean", (selector) => {
-    return cy.get('body')
-        .then($body => {
-            return cy.wrap($body.find(selector).length > 0) //Cy wrap is needed so the function is chainable
-        })
+                    }
+
+                }
+            }
+            else {
+                newComputerPage.CancelNewComputer().contains('Cancel').click()
+                cy.contains('Filter by name')
+            }
+
+
+        }
+
+
+
+    })
+
 })
-
-
 
 Cypress.Commands.add("parseXlsx", (inputFile) => {
     return cy.task('parseXlsx', { filePath: inputFile })
