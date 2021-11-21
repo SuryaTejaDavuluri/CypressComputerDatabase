@@ -15,12 +15,12 @@ Cypress.Commands.add('AddComputer', function (computerName, introducedDate, disc
     if (option == 'Create') {
         if (computerName == '') {
             newComputerPage.SaveNewComputer().click()
-            cy.get('fieldset div').should('have.class', 'clearfix error')
+            newComputerPage.GetErrorCode().should('have.class', 'clearfix error')
         }
         else {
             if (computerName != '') {
                 newComputerPage.SaveNewComputer().click()
-                cy.get('.btn').then(function (el) {
+                homePage.NewComputerButton().then(function (el) {
                     let txt = el.text()
                     if (txt.includes('Add')) {
                         homePage.SuccessAlert().then(function (el1) {
@@ -30,7 +30,7 @@ Cypress.Commands.add('AddComputer', function (computerName, introducedDate, disc
                         })
                     }
                     else {
-                        cy.get('fieldset div').should('have.class', 'clearfix error')
+                        newComputerPage.GetErrorCode().should('have.class', 'clearfix error')
                     }
                 })
 
@@ -46,21 +46,21 @@ Cypress.Commands.add('AddComputer', function (computerName, introducedDate, disc
 
 Cypress.Commands.add('DeleteComputer', function (computerName) {
 
-    cy.get('#searchbox').type(computerName)
-    cy.get('#searchsubmit').click()
+    homePage.SearchBox().type(computerName)
+    homePage.SubmitSearch().click()
 
-    cy.get('#main').then(function (ele) {
+    homePage.NoComputerHeader().then(function (ele) {
         let res = ele.text()
         if (res.includes('No computers found')) {
-            cy.get('.well').then(function (el) {
+            homePage.NothingDisplayMsg().then(function (el) {
                 let msg = el.text()
                 msg = msg.trim()
                 expect(msg).to.equal('Nothing to display')
             })
         }
         else {
-            cy.get('.computers.zebra-striped').should('contain.text', computerName)
-            cy.get('td a').eq(0).each(function (el1, index, $list) {
+            homePage.ComputerResults().should('contain.text', computerName)
+            homePage.SelectComputerName().eq(0).each(function (el1, index, $list) {
                 let cname = $list.eq(index).text()
                 cy.log(cname)
                 if (cname.includes(computerName)) {
@@ -68,8 +68,8 @@ Cypress.Commands.add('DeleteComputer', function (computerName) {
                 }
             })
             newComputerPage.PageHeader().should('contain.text', 'Edit computer')
-            cy.get('.btn.danger').click()
-            cy.get('.alert-message.warning').then(function (el2) {
+            homePage.DeleteComputer().click()
+            homePage.DeletionMessage().then(function (el2) {
                 let deleteMessage = el2.text()
                 deleteMessage = deleteMessage.trim()
                 expect(deleteMessage).to.equal("Done! Computer has been deleted")
@@ -80,20 +80,20 @@ Cypress.Commands.add('DeleteComputer', function (computerName) {
 })
 
 Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, discontinuedDate, company, option) {
-    cy.get('#searchbox').type(Computer)
-    cy.get('#searchsubmit').click()
-    cy.get('#main').then(function (ele) {
+    homePage.SearchBox().type(Computer)
+    homePage.SubmitSearch().click()
+    homePage.NoComputerHeader().then(function (ele) {
         let res = ele.text()
         if (res.includes('No computers found')) {
-            cy.get('.well').then(function (el) {
+            homePage.NothingDisplayMsg().then(function (el) {
                 let msg = el.text()
                 msg = msg.trim()
                 expect(msg).to.equal('Nothing to display')
             })
         }
         else {
-            cy.get('.computers.zebra-striped').should('contain.text', Computer)
-            cy.get('td a').eq(0).each(function (el1, index, $list) {
+            homePage.ComputerResults().should('contain.text', Computer)
+            homePage.SelectComputerName().eq(0).each(function (el1, index, $list) {
                 let cname = $list.eq(index).text()
                 cy.log(cname)
                 if (cname.includes(Computer)) {
@@ -135,7 +135,7 @@ Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, d
                 else {
                     if (Name != '') {
                         newComputerPage.SaveEditedComputer().click()
-                        cy.get('.btn').then(function (el) {
+                        homePage.NewComputerButton().then(function (el) {
                             let txt = el.text()
                             if (txt.includes('Add')) {
                                 homePage.SuccessAlert().then(function (el1) {
@@ -145,7 +145,7 @@ Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, d
                                 })
                             }
                             else {
-                                cy.get('fieldset div').should('have.class', 'clearfix error')
+                                newComputerPage.GetErrorCode().should('have.class', 'clearfix error')
                             }
                         })
 
@@ -168,20 +168,20 @@ Cypress.Commands.add('EditComputer', function (Computer, Name, introducedDate, d
 })
 
 Cypress.Commands.add('SearchorFilter', function (ComputerName) {
-    cy.get('#searchbox').type(ComputerName)
-    cy.get('#searchsubmit').click()
-    cy.get('#main').then(function (ele) {
+    homePage.SearchBox().type(ComputerName)
+    homePage.SubmitSearch().click()
+    homePage.NoComputerHeader().then(function (ele) {
         let res = ele.text()
         if (res.includes('No computers found')) {
-            cy.get('.well').then(function (el) {
+            homePage.NothingDisplayMsg().then(function (el) {
                 let msg = el.text()
                 msg = msg.trim()
                 expect(msg).to.equal('Nothing to display')
             })
         }
         else {
-            cy.get('.computers.zebra-striped').should('contain.text', ComputerName)
-            cy.get('td a').eq(0).each(function (el1, index, $list) {
+            homePage.ComputerResults().should('contain.text', ComputerName)
+            homePage.SelectComputerName().eq(0).each(function (el1, index, $list) {
                 let cname = $list.eq(index).text()
                 cy.log(cname)
             })

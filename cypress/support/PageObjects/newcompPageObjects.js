@@ -35,6 +35,12 @@ class NewComputerPage {
     DeleteComputer() {
         return cy.get('.btn.danger')
     }
+
+    GetErrorCode() {
+        return cy.get('fieldset div')
+    }
+
+
 }
 
 export default NewComputerPage

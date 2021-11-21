@@ -10,7 +10,7 @@ before(function () {
 
 describe('Search Computer', function () {
 
-    it.skip('Search/Filter Computer from filter box', function () {
+    it('Search/Filter Computer from filter box', function () {
         cy.SearchorFilter('Acer Iconia')
     })
 
