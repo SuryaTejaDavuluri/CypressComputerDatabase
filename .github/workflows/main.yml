@@ -15,5 +15,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          # Specify Browser since container image is compile with Firefox
+          build: npx cypress run --record --key dfac4085-6709-4abb-90cd-6c41b9dcaae6 -- spec 'cypress\integration\*.js'
           browser: chrome
