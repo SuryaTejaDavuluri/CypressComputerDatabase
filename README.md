@@ -1,6 +1,6 @@
 # CypressComputerDatabase
 
-This repo contains the Automated Test Scripts for an web application with sample computer database.
+This repo contains the Automated Test Scripts for a web application with sample computer database.
 All scripts are written in **Javascript** using **Cypress framework**(https://www.cypress.io/).
 
 Access the URL with this link('https://computer-database.herokuapp.com/computers')
